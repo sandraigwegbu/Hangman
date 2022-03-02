@@ -12,6 +12,7 @@ chosen_word = random.choice(word_list)
 word_length = len(chosen_word)
 end_of_game = False
 lives = 6
+users_guesses = []
 
 #Import the logo from hangman_art.py and print it
 print(hangman_art.logo + "\n")
@@ -36,7 +37,7 @@ while not end_of_game:
     #Check guessed letter.
     #If the user has already guessed the letter...
     if guess in display:
-        print(f"You've already guessed {guess}. Try again.")
+        print(f"You've already guessed '{guess}'. Try again.")
 
     #If guess is correct, replace "_" with letter
     for position in range(0, word_length):
@@ -48,7 +49,7 @@ while not end_of_game:
     #If the guess is wrong, lose a life
     if guess not in chosen_word:
         lives -= 1
-        print(f"You guessed {guess}. That's not in the word.\nYou lose a life.")
+        print(f"You guessed '{guess}'. That's not in the word.\nYou lose a life.")
 
 
     #Print out updated 'display' after every guess
@@ -57,6 +58,10 @@ while not end_of_game:
     #Import the hangman ASCII art corresponding to
     #each stage, after each guess
     print(hangman_art.stages[lives])
+    
+    #Display the user's guesses
+    users_guesses += guess
+    print(f"You've guessed: {', '.join(users_guesses)}")
     
     #Check if the user has gotten all the letters
     if "_" not in display:
